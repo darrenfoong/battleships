@@ -6,6 +6,8 @@ Web Services.
 # Prerequisites
 
 - Python 3
+- IAM user with administrator permissions ([link](https://docs.aws.amazon.com/serverless-application-model/latest/developerguide/serverless-sam-cli-install-linux.html))
+- Docker
 - AWS SAM CLI
   - Use `pip install --user aws-sam-cli`.
   - `sam` is in `~/.local/bin`. You can find the actual folder with
