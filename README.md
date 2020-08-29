@@ -3,6 +3,23 @@
 A very simple game to learn how to use serverless technology on Amazon
 Web Services.
 
+# Prerequisites
+
+- Python 3
+- AWS SAM CLI
+  - Use `pip install --user aws-sam-cli`.
+  - `sam` is in `~/.local/bin`. You can find the actual folder with
+    `python -m site --user-base`.
+  - On Linux: don't use [Homebrew](https://github.com/aws/aws-sam-cli/issues/1424).
+
+# Running locally
+
+TODO
+
+# Deploying
+
+TODO
+
 # Architecture
 
 - Front-end: React single-page application hosted on Amazon S3.
