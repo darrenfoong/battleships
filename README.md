@@ -9,7 +9,7 @@ Web Services.
 - IAM user with administrator permissions ([link](https://docs.aws.amazon.com/serverless-application-model/latest/developerguide/serverless-sam-cli-install-linux.html))
 - Docker
 - AWS SAM CLI
-  - Use `pip install --user aws-sam-cli`.
+  - Run `pip install --user aws-sam-cli`.
   - `sam` is in `~/.local/bin`. You can find the actual folder with
     `python -m site --user-base`.
   - On Linux: don't use [Homebrew](https://github.com/aws/aws-sam-cli/issues/1424).
@@ -20,7 +20,7 @@ TODO
 
 # Deploying
 
-TODO
+- Run `sam build`
 
 # Architecture
 
