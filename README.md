@@ -16,7 +16,7 @@ Web Services.
 
 # Running locally
 
-TODO
+- Run `sam local start-api`
 
 # Deploying
 
