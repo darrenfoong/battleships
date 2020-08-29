@@ -16,11 +16,13 @@ Web Services.
 
 # Running locally
 
-- Run `sam local start-api`
+- Run `sam local start-api`.
 
 # Deploying
 
-- Run `sam build`
+- Run `sam build`.
+- Run `sam deploy --guided` or `sam deploy` if you already have a
+  `samconfig.toml` file.
 
 # Architecture
 
