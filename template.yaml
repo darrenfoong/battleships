@@ -8,20 +8,56 @@ Globals:
     Timeout: 3
 
 Resources:
-  HelloWorldFunction:
+  CreateGameFunction:
     Type: AWS::Serverless::Function
     Properties:
-      CodeUri: server/hello_world
+      CodeUri: server/create_game
       Handler: app.lambda_handler
       Runtime: python3.8
       Events:
         HelloWorld:
           Type: Api
           Properties:
-            Path: /hello
-            Method: get
+            Path: /game
+            Method: POST
+  GetGamesFunction:
+    Type: AWS::Serverless::Function
+    Properties:
+      CodeUri: server/get_games
+      Handler: app.lambda_handler
+      Runtime: python3.8
+      Events:
+        HelloWorld:
+          Type: Api
+          Properties:
+            Path: /game
+            Method: GET
+  GetGameFunction:
+    Type: AWS::Serverless::Function
+    Properties:
+      CodeUri: server/get_game
+      Handler: app.lambda_handler
+      Runtime: python3.8
+      Events:
+        HelloWorld:
+          Type: Api
+          Properties:
+            Path: /game/{id}/{player_id}
+            Method: GET
+  PerformActionFunction:
+    Type: AWS::Serverless::Function
+    Properties:
+      CodeUri: server/perform_action
+      Handler: app.lambda_handler
+      Runtime: python3.8
+      Events:
+        HelloWorld:
+          Type: Api
+          Properties:
+            Path: /game/{id}/{player_id}
+            Method: POST
 
 Outputs:
-  HelloWorldApi:
+  BattleshipsApi:
     Description: "API Gateway URL"
     Value: !Sub "https://${ServerlessRestApi}.execute-api.${AWS::Region}.amazonaws.com/Prod/"

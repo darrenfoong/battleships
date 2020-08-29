@@ -31,7 +31,7 @@ Web Services.
 - Gateway: Amazon API Gateway.
 - Back-end: Python functions hosted on AWS Lambda.
 - Persistence: Amazon DynamoDB.
-- Security: Amazon Cognito? AWS IAM?
+- Security: Amazon Cognito.
 
 # API
 
@@ -39,7 +39,7 @@ A very simple game has a very simple API.
 
 ```
 - Create a game: POST /game
-- View all games: GET /game
-- View game as player: GET /game/{id}/{player_id}
+- Get all games: GET /game
+- Get game as player: GET /game/{id}/{player_id}
 - Perform action in game: POST /game/{id}/{player_id}
 ```
