@@ -8,6 +8,15 @@ Globals:
     Timeout: 3
 
 Resources:
+  BattleshipsTable:
+    Type: AWS::Serverless::SimpleTable
+    Properties:
+      PrimaryKey:
+        Name: id
+        Type: String
+      TableName: battleships-table
+      SSESpecification:
+        SSEEnabled: true
   CreateGameFunction:
     Type: AWS::Serverless::Function
     Properties:
@@ -15,11 +24,17 @@ Resources:
       Handler: app.lambda_handler
       Runtime: python3.8
       Events:
-        HelloWorld:
+        CreateGame:
           Type: Api
           Properties:
             Path: /game
             Method: POST
+      Policies:
+        - DynamoDBCrudPolicy:
+            TableName: !Ref BattleshipsTable
+      Environment:
+        Variables:
+          TABLE_NAME: !Ref BattleshipsTable
   GetGamesFunction:
     Type: AWS::Serverless::Function
     Properties:
@@ -27,11 +42,17 @@ Resources:
       Handler: app.lambda_handler
       Runtime: python3.8
       Events:
-        HelloWorld:
+        GetGames:
           Type: Api
           Properties:
             Path: /game
             Method: GET
+      Policies:
+        - DynamoDBReadPolicy:
+            TableName: !Ref BattleshipsTable
+      Environment:
+        Variables:
+          TABLE_NAME: !Ref BattleshipsTable
   GetGameFunction:
     Type: AWS::Serverless::Function
     Properties:
@@ -39,11 +60,17 @@ Resources:
       Handler: app.lambda_handler
       Runtime: python3.8
       Events:
-        HelloWorld:
+        GetGame:
           Type: Api
           Properties:
             Path: /game/{id}/{player_id}
             Method: GET
+      Policies:
+        - DynamoDBReadPolicy:
+            TableName: !Ref BattleshipsTable
+      Environment:
+        Variables:
+          TABLE_NAME: !Ref BattleshipsTable
   PerformActionFunction:
     Type: AWS::Serverless::Function
     Properties:
@@ -51,11 +78,17 @@ Resources:
       Handler: app.lambda_handler
       Runtime: python3.8
       Events:
-        HelloWorld:
+        PerformAction:
           Type: Api
           Properties:
             Path: /game/{id}/{player_id}
             Method: POST
+      Policies:
+        - DynamoDBCrudPolicy:
+            TableName: !Ref BattleshipsTable
+      Environment:
+        Variables:
+          TABLE_NAME: !Ref BattleshipsTable
 
 Outputs:
   BattleshipsApi:
