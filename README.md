@@ -16,6 +16,7 @@ Web Services.
 
 # Running locally
 
+- Run `sam build`.
 - Run `sam local start-api`.
 - Run `docker run -d --name dynamodb amazon/dynamodb-local`
 - Run `docker run --rm -it -e AWS_ACCESS_KEY_ID=a -e AWS_SECRET_ACCESS_KEY=b -e AWS_DEFAULT_REGION=ap-southeast-1 amazon/aws-cli dynamodb list-tables --endpoint-url http://172.17.0.2:8000`
