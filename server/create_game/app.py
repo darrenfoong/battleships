@@ -7,8 +7,7 @@ import os
 from common import Game
 
 if os.getenv("AWS_SAM_LOCAL", ""):
-    client = boto3.client("dynamodb",
-                          endpoint_url="http://172.17.0.2:8000")
+    client = boto3.client("dynamodb", endpoint_url="http://172.17.0.2:8000")
     BATTLESHIPS_TABLE = "battleships-table"
 else:
     client = boto3.client("dynamodb")
@@ -24,19 +23,14 @@ def lambda_handler(event, context):
 
     client.put_item(
         TableName=BATTLESHIPS_TABLE,
-        Item={
-            "id": {
-                "S": str(id)
-            },
-            "value": {
-                "S": jsonpickle.encode(game)
-            }
-        }
+        Item={"id": {"S": str(id)}, "value": {"S": jsonpickle.encode(game)}},
     )
 
     return {
         "statusCode": 200,
-        "body": json.dumps({
-            "id": str(id),
-        }),
+        "body": json.dumps(
+            {
+                "id": str(id),
+            }
+        ),
     }

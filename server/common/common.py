@@ -41,10 +41,7 @@ class GameDto:
         self.value = dynamo_item["value"]["S"]
 
     def to_json(self):
-        return {
-            "id": self.id,
-            "value": self.value
-        }
+        return {"id": self.id, "value": self.value}
 
 
 class Board:
