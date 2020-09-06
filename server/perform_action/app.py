@@ -38,4 +38,12 @@ def lambda_handler(event, context):
         perform_action_request.weapon,
     )
 
+    client.update_item(
+        TableName=BATTLESHIPS_TABLE,
+        Key={"id": {"S": str(id)}},
+        UpdateExpression="SET #value = :value",
+        ExpressionAttributeNames={"#value": "value"},
+        ExpressionAttributeValues={":value": {"S": jsonpickle.encode(game)}},
+    )
+
     return {"statusCode": 200}
