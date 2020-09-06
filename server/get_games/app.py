@@ -18,7 +18,7 @@ def lambda_handler(event, context):
     games_dto = list(
         map(
             lambda item: GameDto(item).to_json(),
-            client.scan(TableName=BATTLESHIPS_TABLE)["Items"],
+            client.scan(TableName=BATTLESHIPS_TABLE, ConsistentRead=True)["Items"],
         )
     )
 

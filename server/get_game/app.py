@@ -19,7 +19,10 @@ def lambda_handler(event, context):
     player_id = event["pathParameters"]["player_id"]
 
     game_dto = GameDto(
-        client.get_item(TableName=BATTLESHIPS_TABLE, Key={"id": {"S": str(id)}})["Item"]
+        client.get_item(TableName=BATTLESHIPS_TABLE, Key={"id": {"S": str(id)}})[
+            "Item"
+        ],
+        ConsistentRead=True,
     )
 
     return {"statusCode": 200, "body": json.dumps(game_dto.to_json())}
