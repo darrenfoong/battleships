@@ -19,8 +19,6 @@ else:
 def lambda_handler(event, context):
     create_game_request = json.loads(event["body"])
 
-    print(BATTLESHIPS_TABLE)
-
     id = uuid.uuid4()
 
     game = Game(create_game_request["width"], create_game_request["height"], 0)
