@@ -16,7 +16,7 @@ else:
 
 def lambda_handler(event, context):
     id = event["pathParameters"]["id"]
-    player_id = event["pathParameters"]["player_id"]
+    player = event["pathParameters"]["player"]
 
     game_dto = GameDto(
         client.get_item(

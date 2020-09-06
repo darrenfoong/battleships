@@ -63,7 +63,7 @@ Resources:
         GetGame:
           Type: Api
           Properties:
-            Path: /game/{id}/{player_id}
+            Path: /game/{id}/{player}
             Method: GET
       Policies:
         - DynamoDBReadPolicy:
@@ -81,7 +81,7 @@ Resources:
         PerformAction:
           Type: Api
           Properties:
-            Path: /game/{id}/{player_id}
+            Path: /game/{id}/{player}
             Method: POST
       Policies:
         - DynamoDBCrudPolicy:

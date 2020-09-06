@@ -3,7 +3,7 @@ import json
 import jsonpickle
 import os
 
-from common import GameDto, decodePerformActionRequest
+from common import GameDto, decode_perform_action_request
 
 if os.getenv("AWS_SAM_LOCAL", ""):
     client = boto3.client("dynamodb", endpoint_url="http://172.17.0.2:8000")
@@ -15,11 +15,11 @@ else:
 
 def lambda_handler(event, context):
     perform_action_request = json.loads(
-        event["body"], object_hook=decodePerformActionRequest
+        event["body"], object_hook=decode_perform_action_request
     )
 
     id = event["pathParameters"]["id"]
-    player_id = event["pathParameters"]["player_id"]
+    player = event["pathParameters"]["player"]
 
     game = jsonpickle.decode(
         GameDto(
@@ -32,7 +32,7 @@ def lambda_handler(event, context):
     )
 
     game.perform_action(
-        player_id,
+        player,
         perform_action_request.x,
         perform_action_request.y,
         perform_action_request.weapon,

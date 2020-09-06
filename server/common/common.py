@@ -1,7 +1,13 @@
 from enum import Enum
 import numpy as np
 import time
-import uuid
+
+
+def switch_player(player):
+    if player == "0":
+        return "1"
+    elif player == "1":
+        return "0"
 
 
 class Cell(Enum):
@@ -22,17 +28,17 @@ class Game:
         self.ships = dict()
         self.weapons = dict()
 
-        self.boards[0] = Board(width, height)
-        self.boards[1] = Board(width, height)
+        self.boards["0"] = Board(width, height)
+        self.boards["1"] = Board(width, height)
 
-        self.ships[0] = dict()
-        self.ships[1] = dict()
+        self.ships["0"] = dict()
+        self.ships["1"] = dict()
 
-        self.weapons[0] = dict()
-        self.weapons[1] = dict()
+        self.weapons["0"] = dict()
+        self.weapons["1"] = dict()
 
     def perform_action(self, player, x, y, weapon):
-        return
+        self.boards[switch_player(player)].hit(x, y)
 
 
 class GameDto:
@@ -70,7 +76,7 @@ class PerformActionRequest:
         self.weapon = weapon
 
 
-def decodePerformActionRequest(perform_action_request_dict):
+def decode_perform_action_request(perform_action_request_dict):
     return PerformActionRequest(
         perform_action_request_dict["x"],
         perform_action_request_dict["y"],

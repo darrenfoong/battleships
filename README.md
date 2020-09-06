@@ -44,6 +44,6 @@ A very simple game has a very simple API.
 ```
 - Create a game: POST /game
 - Get all games: GET /game
-- Get game as player: GET /game/{id}/{player_id}
-- Perform action in game: POST /game/{id}/{player_id}
+- Get game as player: GET /game/{id}/{player}
+- Perform action in game: POST /game/{id}/{player}
 ```
