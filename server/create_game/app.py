@@ -6,10 +6,9 @@ import os
 
 from common import Game
 
-
 if os.getenv("AWS_SAM_LOCAL", ""):
     client = boto3.client("dynamodb",
-                         endpoint_url="http://172.17.0.2:8000")
+                          endpoint_url="http://172.17.0.2:8000")
     BATTLESHIPS_TABLE = "battleships-table"
 else:
     client = boto3.client("dynamodb")

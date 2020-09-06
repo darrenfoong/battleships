@@ -1,6 +1,7 @@
 from enum import Enum
 import numpy as np
 import time
+import uuid
 
 
 class Cell(Enum):
@@ -32,6 +33,18 @@ class Game:
 
     def perform_action(self, player, x, y, weapon):
         return
+
+
+class GameDto:
+    def __init__(self, dynamo_item):
+        self.id = dynamo_item["id"]["S"]
+        self.value = dynamo_item["value"]["S"]
+
+    def to_json(self):
+        return {
+            "id": self.id,
+            "value": self.value
+        }
 
 
 class Board:

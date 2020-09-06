@@ -4,7 +4,7 @@ import jsonpickle
 import uuid
 import os
 
-from common import Game
+from common import GameDto
 
 if os.getenv("AWS_SAM_LOCAL", ""):
     client = boto3.client("dynamodb",
@@ -16,16 +16,11 @@ else:
 
 
 def lambda_handler(event, context):
-    games = list(map(lambda item: {
-        "id": item["id"]["S"],
-        "value": item["value"]["S"]
-    }, client.scan(
+    games_dto = list(map(lambda item: GameDto(item), client.scan(
         TableName=BATTLESHIPS_TABLE
     )["Items"]))
 
     return {
         "statusCode": 200,
-        "body": json.dumps({
-            "games": games
-        }),
+        "body": json.dumps(games_dto.to_json()),
     }
