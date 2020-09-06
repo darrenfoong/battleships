@@ -61,3 +61,18 @@ class Board:
         if direction == Direction.LEFTRIGHT:
             for i in range(x, x + length):
                 self.state[y][i] = ship_number
+
+
+class PerformActionRequest:
+    def __init__(self, x, y, weapon):
+        self.x = x
+        self.y = y
+        self.weapon = weapon
+
+
+def decodePerformActionRequest(perform_action_request_dict):
+    return PerformActionRequest(
+        perform_action_request_dict["x"],
+        perform_action_request_dict["y"],
+        perform_action_request_dict["weapon"],
+    )

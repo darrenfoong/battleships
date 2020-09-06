@@ -1,7 +1,6 @@
 import boto3
 import json
 import jsonpickle
-import uuid
 import os
 
 from common import GameDto

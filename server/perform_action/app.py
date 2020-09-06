@@ -1,45 +1,41 @@
+import boto3
 import json
+import jsonpickle
+import os
 
+from common import GameDto, decodePerformActionRequest
 
-# import requests
+if os.getenv("AWS_SAM_LOCAL", ""):
+    client = boto3.client("dynamodb", endpoint_url="http://172.17.0.2:8000")
+    BATTLESHIPS_TABLE = "battleships-table"
+else:
+    client = boto3.client("dynamodb")
+    BATTLESHIPS_TABLE = os.environ["TABLE_NAME"]
 
 
 def lambda_handler(event, context):
-    """Sample pure Lambda function
+    perform_action_request = json.loads(
+        event["body"], object_hook=decodePerformActionRequest
+    )
 
-    Parameters
-    ----------
-    event: dict, required
-        API Gateway Lambda Proxy Input Format
+    id = event["pathParameters"]["id"]
+    player_id = event["pathParameters"]["player_id"]
 
-        Event doc: https://docs.aws.amazon.com/apigateway/latest/developerguide/set-up-lambda-proxy-integrations.html#api-gateway-simple-proxy-for-lambda-input-format
+    game = jsonpickle.decode(
+        GameDto(
+            client.get_item(
+                TableName=BATTLESHIPS_TABLE,
+                Key={"id": {"S": str(id)}},
+                ConsistentRead=True,
+            )["Item"]
+        ).value
+    )
 
-    context: object, required
-        Lambda Context runtime methods and attributes
+    game.perform_action(
+        player_id,
+        perform_action_request.x,
+        perform_action_request.y,
+        perform_action_request.weapon,
+    )
 
-        Context doc: https://docs.aws.amazon.com/lambda/latest/dg/python-context-object.html
-
-    Returns
-    ------
-    API Gateway Lambda Proxy Output Format: dict
-
-        Return doc: https://docs.aws.amazon.com/apigateway/latest/developerguide/set-up-lambda-proxy-integrations.html
-    """
-
-    # try:
-    #     ip = requests.get("http://checkip.amazonaws.com/")
-    # except requests.RequestException as e:
-    #     # Send some context about this error to Lambda Logs
-    #     print(e)
-
-    #     raise e
-
-    return {
-        "statusCode": 200,
-        "body": json.dumps(
-            {
-                "message": "hello world",
-                # "location": ip.text.replace("\n", "")
-            }
-        ),
-    }
+    return {"statusCode": 200}
